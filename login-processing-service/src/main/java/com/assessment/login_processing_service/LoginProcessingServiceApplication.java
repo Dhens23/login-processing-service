@@ -1,4 +1,4 @@
-package com.assessment.login_processing_service.application;
+package com.assessment.login_processing_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
