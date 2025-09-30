@@ -3,12 +3,8 @@ package com.assessment.login_processing_service.infrastructure.in.kafka;
 import com.assessment.login_processing_service.common.model.ClientType;
 import com.assessment.login_processing_service.common.model.CustomerLoginMessage;
 import com.assessment.login_processing_service.port.in.CustomerLoginAdapterPort;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.AdminClientConfig;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -25,7 +21,9 @@ import org.testcontainers.kafka.ConfluentKafkaContainer;
 
 import java.sql.Timestamp;
 import java.time.Duration;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.times;

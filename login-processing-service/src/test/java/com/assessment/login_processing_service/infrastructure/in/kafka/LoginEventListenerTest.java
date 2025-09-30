@@ -2,8 +2,8 @@ package com.assessment.login_processing_service.infrastructure.in.kafka;
 
 
 import com.assessment.login_processing_service.adapter.in.CustomerLoginAdapter;
-import com.assessment.login_processing_service.common.model.CustomerLoginMessage;
 import com.assessment.login_processing_service.common.model.ClientType;
+import com.assessment.login_processing_service.common.model.CustomerLoginMessage;
 import com.assessment.login_processing_service.port.in.CustomerLoginAdapterPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

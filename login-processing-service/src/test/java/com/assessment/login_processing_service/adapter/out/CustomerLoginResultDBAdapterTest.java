@@ -37,7 +37,8 @@ class CustomerLoginResultDBAdapterTest {
         CustomerLoginResultDBPort.CustomerLoginResultPortModel portModel = new CustomerLoginResultDBPort.CustomerLoginResultPortModel(
                 customerId, username, clientType, timestamp, messageId, customerIp, loginSuccessful);
 
-        CustomerLoginResult expectedLoginResult = new CustomerLoginResult(customerId, username, clientType, timestamp, messageId, customerIp, loginSuccessful);
+        CustomerLoginResult expectedLoginResult = new CustomerLoginResult(customerId, username, clientType,
+                timestamp, messageId, customerIp, loginSuccessful);
 
         adapter.save(portModel);
         verify(repositoryMock).save(expectedLoginResult);
