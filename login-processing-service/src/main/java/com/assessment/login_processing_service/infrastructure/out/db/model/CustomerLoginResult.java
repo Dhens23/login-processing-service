@@ -1,5 +1,6 @@
-package com.assessment.login_processing_service.adapter.out.db.model;
+package com.assessment.login_processing_service.infrastructure.out.db.model;
 
+import com.assessment.login_processing_service.common.model.ClientType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 public class CustomerLoginResult {
 
     @Id

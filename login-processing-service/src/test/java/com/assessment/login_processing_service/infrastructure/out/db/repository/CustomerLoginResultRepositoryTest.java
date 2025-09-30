@@ -1,7 +1,7 @@
-package com.assessment.login_processing_service.adapter.out.db.repository;
+package com.assessment.login_processing_service.infrastructure.out.db.repository;
 
-import com.assessment.login_processing_service.adapter.out.db.model.ClientType;
-import com.assessment.login_processing_service.adapter.out.db.model.CustomerLoginResult;
+import com.assessment.login_processing_service.common.model.ClientType;
+import com.assessment.login_processing_service.infrastructure.out.db.model.CustomerLoginResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -13,20 +13,19 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class CustomerRepositoryTest {
+class CustomerLoginResultRepositoryTest {
 
     @Autowired
-    private CustomerRepository customerRepository;
-
+    private CustomerLoginResultRepository customerLoginResultRepository;
 
     @Test
     void findById() {
         CustomerLoginResult username = new CustomerLoginResult(UUID.randomUUID(), "username", ClientType.IOS, new Timestamp(20250101),
                 UUID.randomUUID(), "127.0.0.1", true);
 
-        customerRepository.save(username);
+        customerLoginResultRepository.save(username);
 
-        Optional<CustomerLoginResult> customerLoginResult = customerRepository.findById(username.getCustomerLoginResultId());
+        Optional<CustomerLoginResult> customerLoginResult = customerLoginResultRepository.findById(username.getCustomerLoginResultId());
 
         assertTrue(customerLoginResult.isPresent());
 
