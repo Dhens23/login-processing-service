@@ -1,6 +1,6 @@
 package com.assessment.login_processing_service.config;
 
-import com.assessment.login_processing_service.common.model.CostumerLoginMessageResult;
+import com.assessment.login_processing_service.common.model.CustomerLoginMessageResult;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,12 +32,12 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, CostumerLoginMessageResult> producerFactory() {
+    public ProducerFactory<String, CustomerLoginMessageResult> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public KafkaTemplate<String, CostumerLoginMessageResult> kafkaTemplate(ProducerFactory<String, CostumerLoginMessageResult> producerFactory) {
+    public KafkaTemplate<String, CustomerLoginMessageResult> kafkaTemplate(ProducerFactory<String, CustomerLoginMessageResult> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 }

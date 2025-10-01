@@ -1,6 +1,6 @@
 package com.assessment.login_processing_service.adapter.out;
 
-import com.assessment.login_processing_service.common.model.CostumerLoginMessageResult;
+import com.assessment.login_processing_service.common.model.CustomerLoginMessageResult;
 import com.assessment.login_processing_service.port.out.PublishLoginEventAdapterPort;
 import com.assessment.login_processing_service.port.out.PublishLoginEventPort;
 import lombok.AllArgsConstructor;
@@ -17,8 +17,8 @@ public class PublishLoginEventAdapter implements PublishLoginEventAdapterPort {
         publishLoginEvent.publish(topic, mapPortModel(message));
     }
 
-    private CostumerLoginMessageResult mapPortModel(CustomerLoginMessageResultPortModel message) {
-        return new CostumerLoginMessageResult(message.customerId(), message.username(), message.clientType(),
+    private CustomerLoginMessageResult mapPortModel(CustomerLoginMessageResultPortModel message) {
+        return new CustomerLoginMessageResult(message.customerId(), message.username(), message.clientType(),
                 message.timestamp(), message.messageId(), message.customerIp(), message.requestResult());
     }
 }

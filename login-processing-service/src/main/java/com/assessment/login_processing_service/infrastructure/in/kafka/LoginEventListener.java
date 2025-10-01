@@ -25,8 +25,8 @@ public class LoginEventListener {
         }
     }
 
-    private CustomerLoginAdapterPort.CostumerLoginAdapterPortModel mapMessageToPortModel(CustomerLoginMessage message) {
-        return new CustomerLoginAdapterPort.CostumerLoginAdapterPortModel(message.getCustomerId(), message.getUsername(),
+    private CustomerLoginAdapterPort.CustomerLoginAdapterPortModel mapMessageToPortModel(CustomerLoginMessage message) {
+        return new CustomerLoginAdapterPort.CustomerLoginAdapterPortModel(message.getCustomerId(), message.getUsername(),
                 message.getClientType(), new Timestamp(message.getTimestamp()),
                 message.getMessageId(), message.getCustomerIp());
     }

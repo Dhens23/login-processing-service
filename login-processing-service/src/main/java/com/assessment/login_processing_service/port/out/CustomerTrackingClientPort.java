@@ -4,10 +4,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
-public interface CostumerTrackingClientPort {
+public interface CustomerTrackingClientPort {
 
     /**
-     * @param customerId ID of costumer where login will be tracked
+     * @param customerId ID of customer where login will be tracked
      * @return HttpStatusCode
      */
     ResponseEntity<String> sendLoginTrackingRequest(UUID customerId);

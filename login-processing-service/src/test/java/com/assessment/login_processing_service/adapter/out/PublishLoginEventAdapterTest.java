@@ -1,7 +1,7 @@
 package com.assessment.login_processing_service.adapter.out;
 
 import com.assessment.login_processing_service.common.model.ClientType;
-import com.assessment.login_processing_service.common.model.CostumerLoginMessageResult;
+import com.assessment.login_processing_service.common.model.CustomerLoginMessageResult;
 import com.assessment.login_processing_service.port.out.PublishLoginEventAdapterPort;
 import com.assessment.login_processing_service.port.out.PublishLoginEventPort;
 import org.junit.jupiter.api.Test;
@@ -36,12 +36,12 @@ class PublishLoginEventAdapterTest {
         String topic = "login-topic";
 
         PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel message = createCustomerLoginMessageResultPortModel(customerId, username, clientType, timestamp, messageId, customerIp, requestResult);
-        CostumerLoginMessageResult expectedCostumerLoginMessageResult = createCostumerLoginMessageResult(customerId, username, clientType, timestamp, messageId, customerIp, requestResult);
-        doNothing().when(publishLoginEventPortMock).publish(topic, expectedCostumerLoginMessageResult);
+        CustomerLoginMessageResult expectedCustomerLoginMessageResult = createCustomerLoginMessageResult(customerId, username, clientType, timestamp, messageId, customerIp, requestResult);
+        doNothing().when(publishLoginEventPortMock).publish(topic, expectedCustomerLoginMessageResult);
 
         publishLoginEventAdapter.publish(topic, message);
 
-        verify(publishLoginEventPortMock, times(1)).publish(topic, expectedCostumerLoginMessageResult);
+        verify(publishLoginEventPortMock, times(1)).publish(topic, expectedCustomerLoginMessageResult);
     }
 
     private PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel createCustomerLoginMessageResultPortModel(UUID customerId, String username, ClientType clientType, Timestamp timestamp, UUID messageId, String customerIp, boolean requestResult) {
@@ -55,8 +55,8 @@ class PublishLoginEventAdapterTest {
                 requestResult);
     }
 
-    private CostumerLoginMessageResult createCostumerLoginMessageResult(UUID customerId, String username, ClientType clientType, Timestamp timestamp, UUID messageId, String customerIp, boolean requestResult) {
-        return new CostumerLoginMessageResult(
+    private CustomerLoginMessageResult createCustomerLoginMessageResult(UUID customerId, String username, ClientType clientType, Timestamp timestamp, UUID messageId, String customerIp, boolean requestResult) {
+        return new CustomerLoginMessageResult(
                 customerId,
                 username,
                 clientType,

@@ -1,7 +1,7 @@
 package com.assessment.login_processing_service.infrastructure.out.kafka;
 
 import com.assessment.login_processing_service.common.model.ClientType;
-import com.assessment.login_processing_service.common.model.CostumerLoginMessageResult;
+import com.assessment.login_processing_service.common.model.CustomerLoginMessageResult;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -52,8 +52,8 @@ class LoginEventPublisherIntegrationTest {
     @Test
     void shouldPublishLoginEvent() throws Exception {
         createTestTopic();
-        Consumer<String, CostumerLoginMessageResult> consumer = createTestConsumer();
-        CostumerLoginMessageResult expectedMessage = sampleLoginMessage();
+        Consumer<String, CustomerLoginMessageResult> consumer = createTestConsumer();
+        CustomerLoginMessageResult expectedMessage = sampleLoginMessage();
 
         loginEventPublisher.publish(TOPIC, expectedMessage);
 
@@ -61,7 +61,7 @@ class LoginEventPublisherIntegrationTest {
         await().atMost(Duration.ofSeconds(5))
                 .pollInterval(Duration.ofMillis(500))
                 .untilAsserted(() -> {
-                    ConsumerRecords<String, CostumerLoginMessageResult> records = consumer.poll(Duration.ofMillis(1000));
+                    ConsumerRecords<String, CustomerLoginMessageResult> records = consumer.poll(Duration.ofMillis(1000));
                     assertThat(records.count()).isGreaterThan(0);
                     var record = records.iterator().next();
                     assertThat(record.value()).isEqualTo(expectedMessage);
@@ -76,8 +76,8 @@ class LoginEventPublisherIntegrationTest {
         }
     }
 
-    private Consumer<String, CostumerLoginMessageResult> createTestConsumer() {
-        JsonDeserializer<CostumerLoginMessageResult> deserializer = new JsonDeserializer<>(CostumerLoginMessageResult.class);
+    private Consumer<String, CustomerLoginMessageResult> createTestConsumer() {
+        JsonDeserializer<CustomerLoginMessageResult> deserializer = new JsonDeserializer<>(CustomerLoginMessageResult.class);
         deserializer.addTrustedPackages("com.assessment.login_processing_service.common.model");
 
         Map<String, Object> props = new HashMap<>();
@@ -87,16 +87,16 @@ class LoginEventPublisherIntegrationTest {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
-        ConsumerFactory<String, CostumerLoginMessageResult> factory =
+        ConsumerFactory<String, CustomerLoginMessageResult> factory =
                 new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
 
-        Consumer<String, CostumerLoginMessageResult> consumer = factory.createConsumer();
+        Consumer<String, CustomerLoginMessageResult> consumer = factory.createConsumer();
         consumer.subscribe(List.of(TOPIC));
         return consumer;
     }
 
-    private CostumerLoginMessageResult sampleLoginMessage() {
-        return new CostumerLoginMessageResult(
+    private CustomerLoginMessageResult sampleLoginMessage() {
+        return new CustomerLoginMessageResult(
                 UUID.randomUUID(),
                 "john_doe",
                 ClientType.WEB,

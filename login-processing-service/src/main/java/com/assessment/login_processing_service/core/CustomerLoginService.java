@@ -1,7 +1,7 @@
 package com.assessment.login_processing_service.core;
 
 import com.assessment.login_processing_service.port.in.CustomerLoginPort;
-import com.assessment.login_processing_service.port.out.CostumerTrackingAdapterPort;
+import com.assessment.login_processing_service.port.out.CustomerTrackingAdapterPort;
 import com.assessment.login_processing_service.port.out.CustomerLoginResultDBPort;
 import com.assessment.login_processing_service.port.out.PublishLoginEventAdapterPort;
 import lombok.RequiredArgsConstructor;
@@ -12,32 +12,32 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomerLoginService implements CustomerLoginPort {
 
-    private final CostumerTrackingAdapterPort costumerTrackingAdapterPort;
+    private final CustomerTrackingAdapterPort customerTrackingAdapterPort;
     private final CustomerLoginResultDBPort customerLoginResultDBPort;
     private final PublishLoginEventAdapterPort publishLoginEventAdapterPort;
     private static final int MAX_NUMBER_OF_REQUEST_TRIES = 3;
     private static final String PUBLISH_TOPIC = "login-tracking-result";
 
     @Override
-    public void login(CostumerLoginPortModel costumerLogin) {
+    public void login(CustomerLoginPortModel customerLogin) {
         boolean loginSuccessful = false;
         for (int i = 0; i < MAX_NUMBER_OF_REQUEST_TRIES; i++) {
-            HttpStatus httpStatus = costumerTrackingAdapterPort.sendLoginTrackingRequest(costumerLogin.customerId());
+            HttpStatus httpStatus = customerTrackingAdapterPort.sendLoginTrackingRequest(customerLogin.customerId());
             if (httpStatus == HttpStatus.OK) {
                 loginSuccessful = true;
                 break;
             }
         }
-        publishLoginEventAdapterPort.publish(PUBLISH_TOPIC, createAdapterPortModel(costumerLogin, loginSuccessful));
-        customerLoginResultDBPort.save(createDBPortModel(costumerLogin, loginSuccessful));
+        publishLoginEventAdapterPort.publish(PUBLISH_TOPIC, createAdapterPortModel(customerLogin, loginSuccessful));
+        customerLoginResultDBPort.save(createDBPortModel(customerLogin, loginSuccessful));
     }
 
-    private CustomerLoginResultDBPort.CustomerLoginResultPortModel createDBPortModel(CostumerLoginPortModel costumerLogin, boolean loginSuccessful) {
-        return new CustomerLoginResultDBPort.CustomerLoginResultPortModel(costumerLogin.customerId(), costumerLogin.username(),
-                costumerLogin.clientType(), costumerLogin.timestamp(), costumerLogin.messageId(), costumerLogin.customerIp(), loginSuccessful);
+    private CustomerLoginResultDBPort.CustomerLoginResultPortModel createDBPortModel(CustomerLoginPortModel customerLogin, boolean loginSuccessful) {
+        return new CustomerLoginResultDBPort.CustomerLoginResultPortModel(customerLogin.customerId(), customerLogin.username(),
+                customerLogin.clientType(), customerLogin.timestamp(), customerLogin.messageId(), customerLogin.customerIp(), loginSuccessful);
     }
 
-    private PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel createAdapterPortModel(CostumerLoginPortModel portModel, boolean loginSuccessful) {
+    private PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel createAdapterPortModel(CustomerLoginPortModel portModel, boolean loginSuccessful) {
         return new PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel(portModel.customerId(), portModel.username(),
                 portModel.clientType(), portModel.timestamp(), portModel.messageId(), portModel.customerIp(), loginSuccessful);
     }

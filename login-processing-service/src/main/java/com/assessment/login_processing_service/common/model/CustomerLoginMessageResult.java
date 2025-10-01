@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class CostumerLoginMessageResult {
+public class CustomerLoginMessageResult {
     private UUID customerId;
     private String username;
     private ClientType clientType;

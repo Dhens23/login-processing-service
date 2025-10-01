@@ -32,10 +32,10 @@ class CustomerLoginAdapterTest {
         UUID messageId = UUID.randomUUID();
         String customerIp = "127.0.0.1";
 
-        CustomerLoginPort.CostumerLoginPortModel loginPortModel = new CustomerLoginPort.CostumerLoginPortModel(
+        CustomerLoginPort.CustomerLoginPortModel loginPortModel = new CustomerLoginPort.CustomerLoginPortModel(
                 customerId, username, clientType, timestamp, messageId, customerIp);
 
-        CustomerLoginAdapterPort.CostumerLoginAdapterPortModel loginAdapterPortModel = new CustomerLoginAdapterPort.CostumerLoginAdapterPortModel(
+        CustomerLoginAdapterPort.CustomerLoginAdapterPortModel loginAdapterPortModel = new CustomerLoginAdapterPort.CustomerLoginAdapterPortModel(
                 customerId, username, clientType, timestamp, messageId, customerIp);
 
         adapter.sendLoginTrackingRequest(loginAdapterPortModel);

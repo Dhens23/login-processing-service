@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface CustomerLoginPort {
 
-    void login(CostumerLoginPortModel costumerLogin);
+    void login(CustomerLoginPortModel customerLogin);
 
-    record CostumerLoginPortModel(UUID customerId, String username, ClientType clientType, Timestamp timestamp,
+    record CustomerLoginPortModel(UUID customerId, String username, ClientType clientType, Timestamp timestamp,
                                   UUID messageId, String customerIp) {
     }
 }

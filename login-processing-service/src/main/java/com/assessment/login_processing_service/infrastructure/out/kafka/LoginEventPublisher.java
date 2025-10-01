@@ -1,6 +1,6 @@
 package com.assessment.login_processing_service.infrastructure.out.kafka;
 
-import com.assessment.login_processing_service.common.model.CostumerLoginMessageResult;
+import com.assessment.login_processing_service.common.model.CustomerLoginMessageResult;
 import com.assessment.login_processing_service.port.out.PublishLoginEventPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoginEventPublisher implements PublishLoginEventPort {
 
-    private final KafkaTemplate<String, CostumerLoginMessageResult> kafkaTemplate;
+    private final KafkaTemplate<String, CustomerLoginMessageResult> kafkaTemplate;
 
-    public void publish(String topic, CostumerLoginMessageResult message) {
+    public void publish(String topic, CustomerLoginMessageResult message) {
         log.info("Publishing login message to topic: {}, payload: {}", topic, message);
 
         try {

@@ -1,6 +1,6 @@
 package com.assessment.login_processing_service.infrastructure.out.rest;
 
-import com.assessment.login_processing_service.port.out.CostumerTrackingClientPort;
+import com.assessment.login_processing_service.port.out.CustomerTrackingClientPort;
 import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 @Setter(AccessLevel.PACKAGE)
-public class CustomerTrackingClient implements CostumerTrackingClientPort {
+public class CustomerTrackingClient implements CustomerTrackingClientPort {
 
     private final RestTemplate restTemplate = new RestTemplate();
 

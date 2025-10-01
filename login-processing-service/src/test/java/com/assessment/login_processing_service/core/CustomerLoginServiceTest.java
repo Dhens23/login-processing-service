@@ -2,7 +2,7 @@ package com.assessment.login_processing_service.core;
 
 import com.assessment.login_processing_service.common.model.ClientType;
 import com.assessment.login_processing_service.port.in.CustomerLoginPort;
-import com.assessment.login_processing_service.port.out.CostumerTrackingAdapterPort;
+import com.assessment.login_processing_service.port.out.CustomerTrackingAdapterPort;
 import com.assessment.login_processing_service.port.out.CustomerLoginResultDBPort;
 import com.assessment.login_processing_service.port.out.PublishLoginEventAdapterPort;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 class CustomerLoginServiceTest {
 
     @Mock
-    private CostumerTrackingAdapterPort trackingAdapterPortMock;
+    private CustomerTrackingAdapterPort trackingAdapterPortMock;
     @Mock
     private CustomerLoginResultDBPort resultDBPortMock;
     @Mock
@@ -56,7 +56,7 @@ class CustomerLoginServiceTest {
     }
 
     private void testLogin(boolean expectedLoginSuccessful, HttpStatus... httpStatuses) {
-        CustomerLoginPort.CostumerLoginPortModel loginModel = createCostumerLoginPortModel(CUSTOMER_ID, USERNAME, CLIENT_TYPE, TIMESTAMP, MESSAGE_ID, CUSTOMER_IP);
+        CustomerLoginPort.CustomerLoginPortModel loginModel = createCustomerLoginPortModel(CUSTOMER_ID, USERNAME, CLIENT_TYPE, TIMESTAMP, MESSAGE_ID, CUSTOMER_IP);
         CustomerLoginResultDBPort.CustomerLoginResultPortModel resultPortModel = createCustomerLoginResultPortModel(CUSTOMER_ID, USERNAME, CLIENT_TYPE, TIMESTAMP, MESSAGE_ID, CUSTOMER_IP, expectedLoginSuccessful);
         PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel publishPortModel = createPublishPortModel(CUSTOMER_ID, USERNAME, CLIENT_TYPE, TIMESTAMP, MESSAGE_ID, CUSTOMER_IP, expectedLoginSuccessful);
 
@@ -73,9 +73,9 @@ class CustomerLoginServiceTest {
         verify(resultDBPortMock, times(1)).save(resultPortModel);
     }
 
-    private CustomerLoginPort.CostumerLoginPortModel createCostumerLoginPortModel(UUID customerId, String username, ClientType clientType,
+    private CustomerLoginPort.CustomerLoginPortModel createCustomerLoginPortModel(UUID customerId, String username, ClientType clientType,
                                                                                   Timestamp timestamp, UUID messageId, String customerIp) {
-        return new CustomerLoginPort.CostumerLoginPortModel(
+        return new CustomerLoginPort.CustomerLoginPortModel(
                 customerId,
                 username,
                 clientType,

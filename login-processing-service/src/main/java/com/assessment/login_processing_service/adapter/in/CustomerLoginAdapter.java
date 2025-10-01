@@ -12,12 +12,12 @@ public class CustomerLoginAdapter implements CustomerLoginAdapterPort {
     private final CustomerLoginPort customerLoginService;
 
     @Override
-    public void sendLoginTrackingRequest(CostumerLoginAdapterPortModel costumerLogin) {
-        customerLoginService.login(mapAdapterPortModelToServicePortModel(costumerLogin));
+    public void sendLoginTrackingRequest(CustomerLoginAdapterPortModel customerLogin) {
+        customerLoginService.login(mapAdapterPortModelToServicePortModel(customerLogin));
     }
 
-    private CustomerLoginPort.CostumerLoginPortModel mapAdapterPortModelToServicePortModel(CostumerLoginAdapterPortModel costumerLogin) {
-        return new CustomerLoginPort.CostumerLoginPortModel(costumerLogin.customerId(), costumerLogin.username(),
-                costumerLogin.client(), costumerLogin.timestamp(), costumerLogin.messageId(), costumerLogin.customerIp());
+    private CustomerLoginPort.CustomerLoginPortModel mapAdapterPortModelToServicePortModel(CustomerLoginAdapterPortModel customerLogin) {
+        return new CustomerLoginPort.CustomerLoginPortModel(customerLogin.customerId(), customerLogin.username(),
+                customerLogin.client(), customerLogin.timestamp(), customerLogin.messageId(), customerLogin.customerIp());
     }
 }

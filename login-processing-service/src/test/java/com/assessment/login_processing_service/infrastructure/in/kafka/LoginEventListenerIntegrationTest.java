@@ -56,7 +56,7 @@ class LoginEventListenerIntegrationTest {
         CustomerLoginMessage inputMessage = new CustomerLoginMessage(UUID.randomUUID(), "test_user",
                 ClientType.WEB, 20220101, UUID.randomUUID(), "192.168.0.100");
 
-        CustomerLoginAdapterPort.CostumerLoginAdapterPortModel expectedModel = new CustomerLoginAdapterPort.CostumerLoginAdapterPortModel(
+        CustomerLoginAdapterPort.CustomerLoginAdapterPortModel expectedModel = new CustomerLoginAdapterPort.CustomerLoginAdapterPortModel(
                 inputMessage.getCustomerId(), inputMessage.getUsername(), inputMessage.getClientType(),
                 new Timestamp(inputMessage.getTimestamp()), inputMessage.getMessageId(), inputMessage.getCustomerIp());
 

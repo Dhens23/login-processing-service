@@ -1,6 +1,6 @@
 package com.assessment.login_processing_service.adapter.out;
 
-import com.assessment.login_processing_service.port.out.CostumerTrackingClientPort;
+import com.assessment.login_processing_service.port.out.CustomerTrackingClientPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class CustomerTrackingClientAdapterTest {
 
     @Mock
-    private CostumerTrackingClientPort trackingClientPortMock;
+    private CustomerTrackingClientPort trackingClientPortMock;
     @InjectMocks
     private CustomerTrackingClientAdapter adapter;
 
