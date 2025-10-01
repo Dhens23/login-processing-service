@@ -1,4 +1,4 @@
-package com.assessment.login_processing_service.domain;
+package com.assessment.login_processing_service.core;
 
 import com.assessment.login_processing_service.common.model.ClientType;
 import com.assessment.login_processing_service.port.in.CustomerLoginPort;
