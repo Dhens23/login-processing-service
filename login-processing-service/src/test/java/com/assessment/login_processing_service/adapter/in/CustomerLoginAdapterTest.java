@@ -3,25 +3,25 @@ package com.assessment.login_processing_service.adapter.in;
 import com.assessment.login_processing_service.common.model.ClientType;
 import com.assessment.login_processing_service.port.in.CustomerLoginAdapterPort;
 import com.assessment.login_processing_service.port.in.CustomerLoginPort;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class CustomerLoginAdapterTest {
 
+    @Mock
     private CustomerLoginPort customerLoginPortMock;
+    @InjectMocks
     private CustomerLoginAdapter adapter;
-
-
-    @BeforeEach
-    public void setUp() {
-        customerLoginPortMock = mock(CustomerLoginPort.class);
-        adapter = new CustomerLoginAdapter(customerLoginPortMock);
-    }
 
     @Test
     void login() {

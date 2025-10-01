@@ -3,28 +3,27 @@ package com.assessment.login_processing_service.infrastructure.in.kafka;
 import com.assessment.login_processing_service.common.model.ClientType;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class ClientTypeDeserializerTest {
 
-    private ClientTypeDeserializer deserializer;
+    @Mock
     private JsonParser parser;
+    @Mock
     private DeserializationContext context;
-
-    @BeforeEach
-    public void setUp() {
-        deserializer = new ClientTypeDeserializer();
-        parser = mock(JsonParser.class);
-        context = mock(DeserializationContext.class);
-    }
+    @InjectMocks
+    private ClientTypeDeserializer deserializer;
 
     @Test
     void deserializeWeb() throws Exception {

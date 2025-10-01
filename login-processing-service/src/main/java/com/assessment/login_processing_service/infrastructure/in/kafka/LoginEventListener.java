@@ -16,7 +16,7 @@ public class LoginEventListener {
 
     private final CustomerLoginAdapterPort customerLoginAdapterPort;
 
-    @KafkaListener(topics = "customer-login", groupId = "myGroup", containerFactory = "listenerFactory")
+    @KafkaListener(topics = "${spring.kafka.topic.name}", groupId = "myGroup", containerFactory = "listenerFactory")
     public void listen(CustomerLoginMessage message) {
         try {
             customerLoginAdapterPort.sendLoginTrackingRequest(mapMessageToPortModel(message));

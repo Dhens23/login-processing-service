@@ -1,28 +1,27 @@
 package com.assessment.login_processing_service.adapter.out;
 
+import com.assessment.login_processing_service.common.model.ClientType;
 import com.assessment.login_processing_service.infrastructure.out.db.model.CustomerLoginResult;
 import com.assessment.login_processing_service.infrastructure.out.db.repository.CustomerLoginResultRepository;
-import com.assessment.login_processing_service.common.model.ClientType;
 import com.assessment.login_processing_service.port.out.CustomerLoginResultDBPort;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class CustomerLoginResultDBAdapterTest {
 
+    @Mock
     private CustomerLoginResultRepository repositoryMock;
+    @InjectMocks
     private CustomerLoginResultDBAdapter adapter;
-
-    @BeforeEach
-    void setUp() {
-        repositoryMock = mock(CustomerLoginResultRepository.class);
-        adapter = new CustomerLoginResultDBAdapter(repositoryMock);
-    }
 
     @Test
     void save_shouldMapPortModelAndCallRepositorySave() {

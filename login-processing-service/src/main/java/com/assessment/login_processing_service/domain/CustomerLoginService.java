@@ -16,7 +16,7 @@ public class CustomerLoginService implements CustomerLoginPort {
     private final CustomerLoginResultDBPort customerLoginResultDBPort;
     private final PublishLoginEventAdapterPort publishLoginEventAdapterPort;
     private static final int MAX_NUMBER_OF_REQUEST_TRIES = 3;
-    static final String PUBLISH_TOPIC = "login-tracking-result";
+    private static final String PUBLISH_TOPIC = "login-tracking-result";
 
     @Override
     public void login(CostumerLoginPortModel costumerLogin) {
@@ -29,10 +29,10 @@ public class CustomerLoginService implements CustomerLoginPort {
             }
         }
         publishLoginEventAdapterPort.publish(PUBLISH_TOPIC, createAdapterPortModel(costumerLogin, loginSuccessful));
-        customerLoginResultDBPort.save(createModel(costumerLogin, loginSuccessful));
+        customerLoginResultDBPort.save(createDBPortModel(costumerLogin, loginSuccessful));
     }
 
-    private CustomerLoginResultDBPort.CustomerLoginResultPortModel createModel(CostumerLoginPortModel costumerLogin, boolean loginSuccessful) {
+    private CustomerLoginResultDBPort.CustomerLoginResultPortModel createDBPortModel(CostumerLoginPortModel costumerLogin, boolean loginSuccessful) {
         return new CustomerLoginResultDBPort.CustomerLoginResultPortModel(costumerLogin.customerId(), costumerLogin.username(),
                 costumerLogin.clientType(), costumerLogin.timestamp(), costumerLogin.messageId(), costumerLogin.customerIp(), loginSuccessful);
     }

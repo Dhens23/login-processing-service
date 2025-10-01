@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTrackingClientTest {
 
-    static WireMockServer wireMockServer;
+    private static WireMockServer wireMockServer;
 
-    CustomerTrackingClient client;
+    private CustomerTrackingClient client;
 
     @BeforeAll
     static void setupServer() {

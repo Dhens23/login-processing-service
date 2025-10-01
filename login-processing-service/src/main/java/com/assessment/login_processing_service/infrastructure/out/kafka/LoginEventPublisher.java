@@ -25,7 +25,7 @@ public class LoginEventPublisher implements PublishLoginEventPort {
                         } else {
                             log.info("Login event published successfully: {}", result.getRecordMetadata());
                         }
-                    }).get(); // Block until send completes
+                    });
         } catch (Exception e) {
             log.error("Exception while publishing login event", e);
         }

@@ -5,8 +5,11 @@ import com.assessment.login_processing_service.port.in.CustomerLoginPort;
 import com.assessment.login_processing_service.port.out.CostumerTrackingAdapterPort;
 import com.assessment.login_processing_service.port.out.CustomerLoginResultDBPort;
 import com.assessment.login_processing_service.port.out.PublishLoginEventAdapterPort;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
@@ -15,11 +18,17 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
+
+@ExtendWith(MockitoExtension.class)
 class CustomerLoginServiceTest {
 
+    @Mock
     private CostumerTrackingAdapterPort trackingAdapterPortMock;
+    @Mock
     private CustomerLoginResultDBPort resultDBPortMock;
+    @Mock
     private PublishLoginEventAdapterPort publishLoginEventAdapterPortMock;
+    @InjectMocks
     private CustomerLoginService service;
 
     private static final UUID CUSTOMER_ID = UUID.randomUUID();
@@ -29,13 +38,7 @@ class CustomerLoginServiceTest {
     private static final UUID MESSAGE_ID = UUID.randomUUID();
     private static final String CUSTOMER_IP = "192.168.0.1";
 
-    @BeforeEach
-    void setUp() {
-        trackingAdapterPortMock = mock(CostumerTrackingAdapterPort.class);
-        resultDBPortMock = mock(CustomerLoginResultDBPort.class);
-        publishLoginEventAdapterPortMock = mock(PublishLoginEventAdapterPort.class);
-        service = new CustomerLoginService(trackingAdapterPortMock, resultDBPortMock, publishLoginEventAdapterPortMock);
-    }
+    private static final String PUBLISH_TOPIC_TEST = "login-tracking-result";
 
     @Test
     void testLogin_SuccessOnFirstTry() {
@@ -57,7 +60,7 @@ class CustomerLoginServiceTest {
         CustomerLoginResultDBPort.CustomerLoginResultPortModel resultPortModel = createCustomerLoginResultPortModel(CUSTOMER_ID, USERNAME, CLIENT_TYPE, TIMESTAMP, MESSAGE_ID, CUSTOMER_IP, expectedLoginSuccessful);
         PublishLoginEventAdapterPort.CustomerLoginMessageResultPortModel publishPortModel = createPublishPortModel(CUSTOMER_ID, USERNAME, CLIENT_TYPE, TIMESTAMP, MESSAGE_ID, CUSTOMER_IP, expectedLoginSuccessful);
 
-        doNothing().when(publishLoginEventAdapterPortMock).publish(CustomerLoginService.PUBLISH_TOPIC, publishPortModel);
+        doNothing().when(publishLoginEventAdapterPortMock).publish(PUBLISH_TOPIC_TEST, publishPortModel);
         // thenReturn parameters split into multiple variables to make this method reusable
         when(trackingAdapterPortMock.sendLoginTrackingRequest(loginModel.customerId()))
                 .thenReturn(httpStatuses[0], Arrays.stream(httpStatuses).skip(1).toArray(HttpStatus[]::new));
@@ -66,7 +69,7 @@ class CustomerLoginServiceTest {
         service.login(loginModel);
 
         verify(trackingAdapterPortMock, times(httpStatuses.length)).sendLoginTrackingRequest(loginModel.customerId());
-        verify(publishLoginEventAdapterPortMock, times(1)).publish(CustomerLoginService.PUBLISH_TOPIC, publishPortModel);
+        verify(publishLoginEventAdapterPortMock, times(1)).publish(PUBLISH_TOPIC_TEST, publishPortModel);
         verify(resultDBPortMock, times(1)).save(resultPortModel);
     }
 
